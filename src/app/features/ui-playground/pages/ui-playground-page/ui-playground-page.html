@@ -1,0 +1,33 @@
+<section class="page-shell">
+  <section class="page-hero">
+    <div>
+      <span class="page-hero__eyebrow">UI Playground</span>
+      <h1>Cho nay danh rieng de ban rap component va state giao dien.</h1>
+      <p>
+        Ban co the tao nhanh card, form, table, modal hay filter panel tai feature nay truoc khi
+        dua vao trang that.
+      </p>
+    </div>
+
+    <div class="page-actions">
+      <button class="btn btn--primary" type="button">Them section moi</button>
+      <button class="btn btn--secondary" type="button">Mock state loi</button>
+    </div>
+  </section>
+
+  <section class="playground-grid">
+    @for (block of blocks(); track block.id) {
+      <article class="surface-card playground-card">
+        <p class="muted-label">{{ block.tags.join(' / ') }}</p>
+        <h2>{{ block.title }}</h2>
+        <p class="playground-card__description">{{ block.description }}</p>
+
+        <div class="playground-card__notes">
+          @for (note of block.notes; track note) {
+            <div class="note-item">{{ note }}</div>
+          }
+        </div>
+      </article>
+    }
+  </section>
+</section>

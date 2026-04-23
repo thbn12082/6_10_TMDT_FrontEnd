@@ -1,0 +1,246 @@
+<section class="news-detail-page">
+  <header class="news-header surface-card">
+    <div class="news-header__top">
+      <a class="news-logo" routerLink="/news">
+        <span class="news-logo__mark">LZ</span>
+        <span class="news-logo__text">
+          <strong>LapZone</strong>
+          <span>Tech newsroom mock</span>
+        </span>
+      </a>
+
+      <label class="news-search">
+        <input type="text" placeholder="Tim review, tips, deal..." />
+        <button type="button">Tim</button>
+      </label>
+
+      <div class="news-actions">
+        @for (action of chrome().headerActions; track action) {
+          <button class="news-actions__item" type="button">{{ action }}</button>
+        }
+      </div>
+
+      <div class="news-auth">
+        @if (currentUser(); as user) {
+          <div class="news-auth__identity">
+            <strong>{{ user.fullName }}</strong>
+            <span>{{ user.email }}</span>
+          </div>
+        }
+        <a class="news-auth__link" routerLink="/workspace/admin/articles">Admin</a>
+        <button class="news-auth__logout" type="button" (click)="logout()">Logout</button>
+      </div>
+    </div>
+
+    <div class="news-header__nav">
+      @for (item of chrome().topNav; track item) {
+        <a href="javascript:void(0)">{{ item }}</a>
+      }
+    </div>
+
+    <div class="news-ticker">
+      <span class="news-ticker__label">Live</span>
+
+      @for (item of chrome().ticker; track item) {
+        <span class="news-ticker__item">{{ item }}</span>
+      }
+    </div>
+  </header>
+
+  @if (detail(); as articleDetail) {
+    <section class="detail-shell">
+      <nav class="detail-breadcrumb" aria-label="Breadcrumb">
+        <a routerLink="/news">Trang tin tuc</a>
+        <span>/</span>
+        <a href="javascript:void(0)">{{ articleDetail.article.category }}</a>
+        <span>/</span>
+        <span>{{ articleDetail.article.title }}</span>
+      </nav>
+
+      <article class="detail-card surface-card">
+        <div class="meta-row">
+          <span class="chip chip--primary">{{ articleDetail.article.category }}</span>
+          <span>{{ articleDetail.article.publishedAt }}</span>
+          <span>{{ articleDetail.article.stats }}</span>
+          <span>{{ articleDetail.updatedAt }}</span>
+        </div>
+
+        <h1>{{ articleDetail.article.title }}</h1>
+        <p class="detail-card__lead">{{ articleDetail.lead }}</p>
+
+        <div class="detail-card__byline">
+          <strong>{{ articleDetail.article.author }}</strong>
+          <span>Editor mock &middot; newsroom desk</span>
+        </div>
+
+        <app-mock-thumbnail
+          [artwork]="articleDetail.article.artwork"
+          size="lg"
+          aspectRatio="16 / 8.8"
+        ></app-mock-thumbnail>
+
+        <section class="summary-box">
+          <span class="muted-label">Tom tat nhanh</span>
+
+          <ul>
+            @for (point of articleDetail.highlightPoints; track point) {
+              <li>{{ point }}</li>
+            }
+          </ul>
+        </section>
+
+        @for (section of articleDetail.sections; track section.heading) {
+          <section class="detail-section">
+            <h2>{{ section.heading }}</h2>
+
+            @for (paragraph of section.paragraphs; track paragraph) {
+              <p>{{ paragraph }}</p>
+            }
+
+            @if (section.bullets?.length) {
+              <ul class="detail-list">
+                @for (item of section.bullets; track item) {
+                  <li>{{ item }}</li>
+                }
+              </ul>
+            }
+
+            @if (section.quote) {
+              <blockquote>{{ section.quote }}</blockquote>
+            }
+
+            @if (section.figure; as figure) {
+              <figure class="detail-figure">
+                <app-mock-thumbnail
+                  [artwork]="figure.artwork"
+                  [aspectRatio]="figure.aspectRatio"
+                ></app-mock-thumbnail>
+                <figcaption>{{ figure.caption }}</figcaption>
+              </figure>
+            }
+          </section>
+        }
+
+        <section class="detail-gallery">
+          <div class="detail-gallery__top">
+            <span class="muted-label">Bo anh minh hoa</span>
+            <h2>Khoi hinh doc theo chieu dai bai viet</h2>
+          </div>
+
+          <div class="detail-gallery__grid">
+            @for (figure of articleDetail.gallery; track figure.id) {
+              <figure class="detail-figure">
+                <app-mock-thumbnail
+                  [artwork]="figure.artwork"
+                  [aspectRatio]="figure.aspectRatio"
+                ></app-mock-thumbnail>
+                <figcaption>{{ figure.caption }}</figcaption>
+              </figure>
+            }
+          </div>
+        </section>
+
+        <section class="detail-sources">
+          <span class="muted-label">Nguon tham chieu</span>
+
+          <div class="detail-sources__list">
+            @for (source of articleDetail.sources; track source) {
+              <p>{{ source }}</p>
+            }
+          </div>
+        </section>
+      </article>
+
+      <section class="sponsor-banner surface-card">
+        <div class="sponsor-banner__body">
+          <span class="muted-label">{{ chrome().banner.eyebrow }}</span>
+          <h2>{{ chrome().banner.title }}</h2>
+          <p>{{ chrome().banner.caption }}</p>
+          <button class="sponsor-banner__cta" type="button">{{ chrome().banner.cta }}</button>
+        </div>
+
+        <app-mock-thumbnail
+          class="sponsor-banner__media"
+          [artwork]="chrome().banner.artwork"
+          size="lg"
+          align="end"
+          aspectRatio="16 / 6"
+        ></app-mock-thumbnail>
+      </section>
+
+      <section class="surface-card related-panel">
+        <div class="related-panel__top">
+          <div>
+            <span class="muted-label">Bai lien quan</span>
+            <h2>Doc them sau khi xong bai chi tiet</h2>
+          </div>
+        </div>
+
+        <div class="section-card-grid">
+          @for (article of articleDetail.relatedArticles; track article.id) {
+            <article class="section-card">
+              <a class="section-card__media-link" [routerLink]="['/news', article.id]">
+                <app-mock-thumbnail
+                  [artwork]="article.artwork"
+                  size="sm"
+                  aspectRatio="16 / 10"
+                ></app-mock-thumbnail>
+              </a>
+
+              <div class="section-card__body">
+                <span class="chip chip--soft">{{ article.category }}</span>
+                <a class="section-card__title-link" [routerLink]="['/news', article.id]">
+                  <h3>{{ article.title }}</h3>
+                </a>
+                <p>{{ article.excerpt }}</p>
+              </div>
+            </article>
+          }
+        </div>
+      </section>
+    </section>
+  } @else {
+    <section class="surface-card empty-state">
+      <span class="muted-label">Khong tim thay</span>
+      <h1>Bai viet nay chua co mock detail.</h1>
+      <p>Ban co the quay ve trang tin tuc va chon mot bai khac da co du lieu chi tiet.</p>
+      <a class="empty-state__link" routerLink="/news">Quay lai trang tin tuc</a>
+    </section>
+  }
+
+  <footer class="news-footer surface-card">
+    <div class="news-footer__top">
+      <div>
+        <span class="muted-label">LapZone footer</span>
+        <h2>Footer nhieu cot cho site tin tuc cong nghe</h2>
+        <p>{{ chrome().footerNote }}</p>
+      </div>
+
+      <div class="news-footer__badge">Newsletter on every Friday</div>
+    </div>
+
+    <div class="news-footer__columns">
+      @for (column of chrome().footerColumns; track column.title) {
+        <div class="footer-column">
+          <h3>{{ column.title }}</h3>
+
+          <div class="footer-column__links">
+            @for (link of column.links; track link) {
+              <a href="javascript:void(0)">{{ link }}</a>
+            }
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="news-footer__bottom">
+      <div class="footer-social">
+        <a href="javascript:void(0)">Facebook</a>
+        <a href="javascript:void(0)">YouTube</a>
+        <a href="javascript:void(0)">Discord</a>
+      </div>
+
+      <span>&copy; 2026 LapZone mock newsroom</span>
+    </div>
+  </footer>
+</section>

@@ -1,0 +1,44 @@
+<section class="auth-card">
+  <div class="auth-card__header">
+    <span class="auth-card__eyebrow">Sign up</span>
+    <h2>Tao tai khoan moi truoc khi vao he thong.</h2>
+    <p>Day la buoc dau tien. Tao xong se duoc chuyen qua trang login.</p>
+  </div>
+
+  <form class="auth-form" [formGroup]="signupForm" (ngSubmit)="submit()">
+    <label class="auth-field">
+      <span>Ho va ten</span>
+      <input type="text" formControlName="fullName" placeholder="Nguyen Van A" />
+    </label>
+
+    <label class="auth-field">
+      <span>Email</span>
+      <input type="email" formControlName="email" placeholder="admin@lapzone.dev" />
+    </label>
+
+    <label class="auth-field">
+      <span>Mat khau</span>
+      <input type="password" formControlName="password" placeholder="Toi thieu 6 ky tu" />
+    </label>
+
+    <label class="auth-field">
+      <span>Nhap lai mat khau</span>
+      <input type="password" formControlName="confirmPassword" placeholder="Nhap lai mat khau" />
+    </label>
+
+    <button class="auth-submit" type="submit">Tao tai khoan</button>
+  </form>
+
+  <div class="auth-card__footer">
+    @if (statusMessage()) {
+      <p class="auth-status">{{ statusMessage() }}</p>
+    } @else {
+      <p class="auth-status">Tai khoan se duoc luu local de ban test flow auth.</p>
+    }
+
+    <p>
+      Da co tai khoan?
+      <a routerLink="/auth/login">Dang nhap ngay</a>
+    </p>
+  </div>
+</section>

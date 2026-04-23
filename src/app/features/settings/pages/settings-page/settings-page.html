@@ -1,0 +1,55 @@
+<section class="page-shell">
+  <section class="page-hero">
+    <div>
+      <span class="page-hero__eyebrow">Project Notes</span>
+      <h1>Checklist de giu base code sach khi ban bat dau code giao dien.</h1>
+      <p>
+        Trang nay khong phai settings theo nghia business. Toi de san nhu mot goi ghi chu ky thuat
+        cho giai doan mock data.
+      </p>
+    </div>
+
+    <div class="page-actions">
+      <button class="btn btn--primary" type="button">Tao feature moi</button>
+      <button class="btn btn--secondary" type="button">Them mock file</button>
+    </div>
+  </section>
+
+  <section class="settings-grid">
+    <article class="surface-card checklist-card">
+      <header class="surface-card__header">
+        <div>
+          <h3>Checklist truoc khi code UI</h3>
+          <p>May dieu nen giu ky luat ngay tu base.</p>
+        </div>
+      </header>
+
+      <div class="checklist">
+        @for (item of checklist; track item) {
+          <div class="checklist__item">
+            <span></span>
+            <p>{{ item }}</p>
+          </div>
+        }
+      </div>
+    </article>
+
+    <article class="surface-card folder-card">
+      <header class="surface-card__header">
+        <div>
+          <h3>Folder guide</h3>
+          <p>Mo rong theo feature, khong de component lang nhang o app root.</p>
+        </div>
+      </header>
+
+      <div class="folder-list">
+        @for (item of folderGuide; track item.name) {
+          <div class="folder-list__item">
+            <strong>{{ item.name }}</strong>
+            <p>{{ item.purpose }}</p>
+          </div>
+        }
+      </div>
+    </article>
+  </section>
+</section>

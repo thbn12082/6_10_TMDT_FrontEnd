@@ -1,0 +1,315 @@
+<section class="news-page">
+  <header class="news-header surface-card">
+    <div class="news-header__top">
+      <a class="news-logo" routerLink="/news">
+        <span class="news-logo__mark">LZ</span>
+        <span class="news-logo__text">
+          <strong>LapZone</strong>
+          <span>Tech newsroom mock</span>
+        </span>
+      </a>
+
+      <label class="news-search">
+        <input type="text" placeholder="Tim review, tips, deal..." />
+        <button type="button">Tim</button>
+      </label>
+
+      <div class="news-actions">
+        @for (action of view().headerActions; track action) {
+          <button class="news-actions__item" type="button">{{ action }}</button>
+        }
+      </div>
+
+      <div class="news-auth">
+        @if (currentUser(); as user) {
+          <div class="news-auth__identity">
+            <strong>{{ user.fullName }}</strong>
+            <span>{{ user.email }}</span>
+          </div>
+        }
+        <a class="news-auth__link" routerLink="/workspace/admin/articles">Admin</a>
+        <button class="news-auth__logout" type="button" (click)="logout()">Logout</button>
+      </div>
+    </div>
+
+    <div class="news-header__nav">
+      @for (item of view().topNav; track item) {
+        <a href="javascript:void(0)">{{ item }}</a>
+      }
+    </div>
+
+    <div class="news-ticker">
+      <span class="news-ticker__label">Live</span>
+
+      @for (item of view().ticker; track item) {
+        <span class="news-ticker__item">{{ item }}</span>
+      }
+    </div>
+  </header>
+
+  <section class="hero-grid">
+    <article class="hero-card surface-card">
+      <a class="hero-card__media-link" [routerLink]="['/news', view().hero.id]">
+        <app-mock-thumbnail
+          [artwork]="view().hero.artwork"
+          size="lg"
+          aspectRatio="16 / 8.5"
+        ></app-mock-thumbnail>
+      </a>
+
+      <div class="hero-card__content">
+        <div class="meta-row">
+          <span class="chip chip--primary">{{ view().hero.category }}</span>
+          <span>{{ view().hero.publishedAt }}</span>
+          <span>{{ view().hero.stats }}</span>
+        </div>
+
+        <a class="hero-card__title-link" [routerLink]="['/news', view().hero.id]">
+          <h1>{{ view().hero.title }}</h1>
+        </a>
+        <p>{{ view().hero.excerpt }}</p>
+
+        <div class="hero-card__footer">
+          <span>By {{ view().hero.author }}</span>
+          <a [routerLink]="['/news', view().hero.id]">Doc tiep</a>
+        </div>
+      </div>
+    </article>
+
+    <aside class="hero-rail">
+      <article class="surface-card rail-card">
+        <div class="surface-card__header">
+          <div>
+            <h3>Tin dang len</h3>
+            <p>Block list nhanh o cot phai ngay duoi header.</p>
+          </div>
+        </div>
+
+        <div class="rail-list">
+          @for (item of view().heroHighlights; track item.title) {
+            <article class="rail-item">
+              <span class="rail-item__index">{{ $index + 1 }}</span>
+              @if (item.articleId) {
+                <a class="rail-item__link" [routerLink]="['/news', item.articleId]">
+                  <strong>{{ item.title }}</strong>
+                  <span>{{ item.meta }}</span>
+                </a>
+              } @else {
+                <div>
+                  <strong>{{ item.title }}</strong>
+                  <span>{{ item.meta }}</span>
+                </div>
+              }
+            </article>
+          }
+        </div>
+      </article>
+
+      <article class="surface-card rail-promo">
+        <app-mock-thumbnail
+          [artwork]="view().heroPromo.artwork"
+          aspectRatio="16 / 10"
+        ></app-mock-thumbnail>
+
+        <div class="rail-promo__content">
+          <span class="muted-label">{{ view().heroPromo.eyebrow }}</span>
+          <h3>{{ view().heroPromo.title }}</h3>
+          <p>{{ view().heroPromo.caption }}</p>
+          <button class="rail-promo__cta" type="button">{{ view().heroPromo.cta }}</button>
+        </div>
+      </article>
+    </aside>
+  </section>
+
+  <section class="feed-grid">
+    <article class="surface-card feed-panel">
+      <div class="surface-card__header">
+        <div>
+          <h3>Bai moi cap nhat</h3>
+          <p>Danh sach bai dang row, thumb ben trai va content ben phai.</p>
+        </div>
+        <span class="chip">{{ view().articleFeed.length }} bai default</span>
+      </div>
+
+      <div class="feed-list">
+        @for (article of view().articleFeed; track article.id) {
+          <article class="feed-item">
+            <a class="feed-item__media-link" [routerLink]="['/news', article.id]">
+              <app-mock-thumbnail
+                class="feed-item__media"
+                [artwork]="article.artwork"
+                size="sm"
+                aspectRatio="16 / 10"
+              ></app-mock-thumbnail>
+            </a>
+
+            <div class="feed-item__body">
+              <div class="meta-row">
+                <span class="chip chip--soft">{{ article.category }}</span>
+                <span>{{ article.publishedAt }}</span>
+                <span>{{ article.stats }}</span>
+              </div>
+
+              <a class="feed-item__title-link" [routerLink]="['/news', article.id]">
+                <h3>{{ article.title }}</h3>
+              </a>
+              <p>{{ article.excerpt }}</p>
+
+              <div class="feed-item__footer">
+                <span>By {{ article.author }}</span>
+                <a [routerLink]="['/news', article.id]">Mo bai viet</a>
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+    </article>
+
+    <aside class="feed-sidebar">
+      <article class="surface-card sidebar-panel">
+        <div class="surface-card__header">
+          <div>
+            <h3>Doc nhanh</h3>
+            <p>Cot tin ngan, note ngan va flash headline.</p>
+          </div>
+        </div>
+
+        <div class="brief-list">
+          @for (item of view().sidebarBriefs; track item.title) {
+            <article class="brief-item">
+              <strong>{{ item.title }}</strong>
+              <span>{{ item.meta }}</span>
+            </article>
+          }
+        </div>
+      </article>
+
+      <article class="surface-card sidebar-panel">
+        <div class="surface-card__header">
+          <div>
+            <h3>Spotlight</h3>
+            <p>Card de xuat nho cho phan cot phai.</p>
+          </div>
+        </div>
+
+        <div class="sidebar-story-list">
+          @for (story of view().sidebarStories; track story.id) {
+            <article class="sidebar-story">
+              <a class="sidebar-story__media-link" [routerLink]="['/news', story.id]">
+                <app-mock-thumbnail
+                  [artwork]="story.artwork"
+                  size="sm"
+                  aspectRatio="16 / 10"
+                ></app-mock-thumbnail>
+              </a>
+
+              <div class="sidebar-story__body">
+                <span class="chip chip--soft">{{ story.category }}</span>
+                <a class="sidebar-story__title-link" [routerLink]="['/news', story.id]">
+                  <h4>{{ story.title }}</h4>
+                </a>
+                <span>{{ story.publishedAt }} &middot; {{ story.stats }}</span>
+              </div>
+            </article>
+          }
+        </div>
+      </article>
+    </aside>
+  </section>
+
+  <section class="sponsor-banner surface-card">
+    <div class="sponsor-banner__body">
+      <span class="muted-label">{{ view().banner.eyebrow }}</span>
+      <h2>{{ view().banner.title }}</h2>
+      <p>{{ view().banner.caption }}</p>
+      <button class="sponsor-banner__cta" type="button">{{ view().banner.cta }}</button>
+    </div>
+
+    <app-mock-thumbnail
+      class="sponsor-banner__media"
+      [artwork]="view().banner.artwork"
+      size="lg"
+      align="end"
+      aspectRatio="16 / 6"
+    ></app-mock-thumbnail>
+  </section>
+
+  <section class="surface-card section-panel">
+    <div class="section-panel__top">
+      <div>
+        <span class="muted-label">Theo chuyen muc</span>
+        <h2>Block card ngang cho zone cuoi trang</h2>
+      </div>
+
+      <div class="section-tabs">
+        @for (tab of view().sectionTabs; track tab) {
+          <button
+            class="section-tab"
+            [class.section-tab--active]="$index === 0"
+            type="button"
+          >
+            {{ tab }}
+          </button>
+        }
+      </div>
+    </div>
+
+    <div class="section-card-grid">
+      @for (card of view().sectionCards; track card.id) {
+        <article class="section-card">
+          <a class="section-card__media-link" [routerLink]="['/news', card.id]">
+            <app-mock-thumbnail
+              [artwork]="card.artwork"
+              size="sm"
+              aspectRatio="16 / 10"
+            ></app-mock-thumbnail>
+          </a>
+
+          <div class="section-card__body">
+            <span class="chip chip--soft">{{ card.category }}</span>
+            <a class="section-card__title-link" [routerLink]="['/news', card.id]">
+              <h3>{{ card.title }}</h3>
+            </a>
+            <p>{{ card.excerpt }}</p>
+          </div>
+        </article>
+      }
+    </div>
+  </section>
+
+  <footer class="news-footer surface-card">
+    <div class="news-footer__top">
+      <div>
+        <span class="muted-label">LapZone footer</span>
+        <h2>Footer nhieu cot cho site tin tuc cong nghe</h2>
+        <p>{{ view().footerNote }}</p>
+      </div>
+
+      <div class="news-footer__badge">Newsletter on every Friday</div>
+    </div>
+
+    <div class="news-footer__columns">
+      @for (column of view().footerColumns; track column.title) {
+        <div class="footer-column">
+          <h3>{{ column.title }}</h3>
+
+          <div class="footer-column__links">
+            @for (link of column.links; track link) {
+              <a href="javascript:void(0)">{{ link }}</a>
+            }
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="news-footer__bottom">
+      <div class="footer-social">
+        <a href="javascript:void(0)">Facebook</a>
+        <a href="javascript:void(0)">YouTube</a>
+        <a href="javascript:void(0)">Discord</a>
+      </div>
+
+      <span>&copy; 2026 LapZone mock newsroom</span>
+    </div>
+  </footer>
+</section>

@@ -1,0 +1,102 @@
+<section class="page-shell">
+  <section class="page-hero">
+    <div>
+      <span class="page-hero__eyebrow">Dashboard Mock</span>
+      <h1>Bo khung tong quan de ban gan giao dien that vao.</h1>
+      <p>
+        Tat ca du lieu duoi day dang di qua `MockWorkspaceService`, nen khi doi sang API that
+        ban chi can thay service hoac datasource.
+      </p>
+    </div>
+
+    <div class="page-actions">
+      <button class="btn btn--primary" type="button">Them widget</button>
+      <button class="btn btn--secondary" type="button">Tao empty state</button>
+    </div>
+  </section>
+
+  <section class="summary-grid">
+    @for (card of dashboardView().summaryCards; track card.title) {
+      <article class="summary-card surface-card">
+        <p class="muted-label">{{ card.title }}</p>
+        <div class="summary-card__value-row">
+          <h2>{{ card.value }}</h2>
+          <app-status-badge [label]="card.delta" [tone]="card.tone"></app-status-badge>
+        </div>
+        <p class="summary-card__helper">{{ card.helper }}</p>
+      </article>
+    }
+  </section>
+
+  <section class="content-grid">
+    <article class="surface-card">
+      <header class="surface-card__header">
+        <div>
+          <h3>Recent modules</h3>
+          <p>Bang mock de ban thay layout table, status va progress.</p>
+        </div>
+        <app-status-badge label="3 datasets" tone="neutral"></app-status-badge>
+      </header>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Module</th>
+              <th>Owner</th>
+              <th>Status</th>
+              <th>Updated</th>
+              <th>Progress</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            @for (project of dashboardView().projects; track project.id) {
+              <tr>
+                <td>
+                  <strong>{{ project.name }}</strong>
+                  <span>{{ project.id }}</span>
+                </td>
+                <td>{{ project.owner }}</td>
+                <td>
+                  <app-status-badge [label]="project.status" [tone]="project.tone"></app-status-badge>
+                </td>
+                <td>{{ project.updatedAt }}</td>
+                <td>
+                  <div class="progress">
+                    <div class="progress__bar" [style.width.%]="project.completion"></div>
+                  </div>
+                  <span class="progress__value">{{ project.completion | number: '1.0-0' }}%</span>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <article class="surface-card">
+      <header class="surface-card__header">
+        <div>
+          <h3>Activity feed</h3>
+          <p>Mau timeline nho de ban thay cards nho va list state.</p>
+        </div>
+      </header>
+
+      <div class="activity-list">
+        @for (activity of dashboardView().activities; track activity.id) {
+          <article class="activity-item">
+            <div class="activity-item__dot"></div>
+            <div>
+              <div class="activity-item__header">
+                <strong>{{ activity.title }}</strong>
+                <span>{{ activity.timestamp }}</span>
+              </div>
+              <p>{{ activity.description }}</p>
+            </div>
+          </article>
+        }
+      </div>
+    </article>
+  </section>
+</section>

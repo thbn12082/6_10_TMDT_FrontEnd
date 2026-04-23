@@ -1,0 +1,40 @@
+.playground-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.playground-card {
+  padding: 22px;
+}
+
+.playground-card h2 {
+  margin: 10px 0 8px;
+  font-size: 1.3rem;
+}
+
+.playground-card__description {
+  margin: 0;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.playground-card__notes {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.note-item {
+  padding: 14px 16px;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  background: rgba(17, 45, 42, 0.03);
+  line-height: 1.45;
+}
+
+@media (max-width: 1080px) {
+  .playground-grid {
+    grid-template-columns: 1fr;
+  }
+}

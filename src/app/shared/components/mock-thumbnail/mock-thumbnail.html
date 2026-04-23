@@ -1,0 +1,29 @@
+<div
+  class="thumb"
+  [ngClass]="{
+    'thumb--sm': size() === 'sm',
+    'thumb--lg': size() === 'lg',
+    'thumb--end': align() === 'end'
+  }"
+  [style.--thumb-start]="artwork().startColor"
+  [style.--thumb-end]="artwork().endColor"
+  [style.aspect-ratio]="aspectRatio()"
+>
+  <div class="thumb__noise"></div>
+
+  <div class="thumb__content">
+    @if (artwork().eyebrow) {
+      <span class="thumb__eyebrow">{{ artwork().eyebrow }}</span>
+    }
+
+    <strong>{{ artwork().title }}</strong>
+
+    @if (artwork().subtitle) {
+      <p>{{ artwork().subtitle }}</p>
+    }
+  </div>
+
+  @if (artwork().stamp) {
+    <span class="thumb__stamp">{{ artwork().stamp }}</span>
+  }
+</div>

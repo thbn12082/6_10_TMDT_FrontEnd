@@ -1,0 +1,190 @@
+<section class="page-shell">
+  <section class="page-hero">
+    <div>
+      <span class="page-hero__eyebrow">News Admin</span>
+      <h1>Trang quan ly bai viet voi thao tac them, sua va xoa mock data.</h1>
+      <p>
+        Du lieu trong admin nay dang dung chung state voi trang `news` va trang chi tiet. Luu xong
+        la giao dien public thay doi ngay trong phien hien tai.
+      </p>
+    </div>
+
+    <div class="page-actions">
+      <button class="btn btn--primary" type="button" (click)="startCreate()">
+        Them bai viet moi
+      </button>
+      <a class="btn btn--secondary" routerLink="/news">Mo trang public</a>
+      <button class="btn btn--secondary" type="button" (click)="logout()">Logout</button>
+    </div>
+  </section>
+
+  @if (currentUser(); as user) {
+    <section class="admin-session surface-card">
+      <span class="muted-label">Session</span>
+      <strong>{{ user.fullName }}</strong>
+      <span>{{ user.email }}</span>
+    </section>
+  }
+
+  <section class="admin-layout">
+    <article class="surface-card admin-list-card">
+      <header class="surface-card__header">
+        <div>
+          <h3>Danh sach bai viet</h3>
+          <p>{{ articleCount() }} bai dang co trong mock store.</p>
+        </div>
+        <span class="admin-pill">{{ mode() === 'create' ? 'Create mode' : 'Edit mode' }}</span>
+      </header>
+
+      <div class="admin-list">
+        @for (article of articles(); track article.id) {
+          <article
+            class="admin-row"
+            [ngClass]="{
+              'admin-row--active': mode() === 'edit' && selectedArticleId() === article.id
+            }"
+          >
+            <button class="admin-row__main" type="button" (click)="selectArticle(article.id)">
+              <div class="admin-row__meta">
+                <span class="chip chip--soft">{{ article.category }}</span>
+                <span>{{ article.publishedAt }}</span>
+              </div>
+              <strong>{{ article.title }}</strong>
+              <p>{{ article.excerpt }}</p>
+            </button>
+
+            <div class="admin-row__actions">
+              <a class="admin-row__link" [routerLink]="['/news', article.id]">Xem</a>
+              <button class="admin-row__danger" type="button" (click)="deleteArticle(article.id)">
+                Xoa
+              </button>
+            </div>
+          </article>
+        }
+      </div>
+    </article>
+
+    <article class="surface-card editor-card">
+      <header class="surface-card__header">
+        <div>
+          <h3>{{ mode() === 'create' ? 'Tao bai viet moi' : 'Chinh sua bai viet' }}</h3>
+          <p>
+            @if (mode() === 'edit' && selectedArticle()) {
+              Dang sua ID: <strong>{{ selectedArticle()!.id }}</strong>
+            } @else {
+              Dang tao bai viet moi cho mock store.
+            }
+          </p>
+        </div>
+
+        <div class="editor-status">
+          @if (statusMessage()) {
+            <span>{{ statusMessage() }}</span>
+          } @else {
+            <span>Form se cap nhat state ngay khi ban bam luu.</span>
+          }
+        </div>
+      </header>
+
+      <div class="editor-layout">
+        <form class="editor-form" [formGroup]="articleForm" (ngSubmit)="saveArticle()">
+          <div class="field-grid">
+            <label class="field">
+              <span>Chuyen muc</span>
+              <input type="text" formControlName="category" />
+            </label>
+
+            <label class="field">
+              <span>Tac gia</span>
+              <input type="text" formControlName="author" />
+            </label>
+
+            <label class="field">
+              <span>Ngay dang</span>
+              <input type="text" formControlName="publishedAt" />
+            </label>
+
+            <label class="field">
+              <span>Thong so</span>
+              <input type="text" formControlName="stats" />
+            </label>
+
+            <label class="field field--full">
+              <span>Tieu de bai viet</span>
+              <input type="text" formControlName="title" />
+            </label>
+
+            <label class="field field--full">
+              <span>Mo ta ngan</span>
+              <textarea rows="4" formControlName="excerpt"></textarea>
+            </label>
+
+            <label class="field">
+              <span>Eyebrow visual</span>
+              <input type="text" formControlName="eyebrow" />
+            </label>
+
+            <label class="field">
+              <span>Artwork title</span>
+              <input type="text" formControlName="artworkTitle" />
+            </label>
+
+            <label class="field">
+              <span>Artwork subtitle</span>
+              <input type="text" formControlName="artworkSubtitle" />
+            </label>
+
+            <label class="field">
+              <span>Artwork stamp</span>
+              <input type="text" formControlName="artworkStamp" />
+            </label>
+
+            <label class="field field--color">
+              <span>Gradient start</span>
+              <input type="color" formControlName="startColor" />
+            </label>
+
+            <label class="field field--color">
+              <span>Gradient end</span>
+              <input type="color" formControlName="endColor" />
+            </label>
+          </div>
+
+          <div class="editor-actions">
+            <button class="btn-save" type="submit">
+              {{ mode() === 'create' ? 'Luu bai viet moi' : 'Cap nhat bai viet' }}
+            </button>
+            <button class="btn-ghost" type="button" (click)="resetEditor()">Reset form</button>
+            <button
+              class="btn-danger"
+              type="button"
+              [disabled]="!canDelete()"
+              (click)="deleteCurrentArticle()"
+            >
+              Xoa bai dang chon
+            </button>
+          </div>
+        </form>
+
+        <aside class="editor-preview">
+          <div class="editor-preview__card">
+            <span class="muted-label">Preview artwork</span>
+            <app-mock-thumbnail
+              [artwork]="previewArtwork()"
+              aspectRatio="16 / 10"
+            ></app-mock-thumbnail>
+          </div>
+
+          <div class="editor-preview__note">
+            <span class="muted-label">Ghi chu</span>
+            <ul>
+              <li>Bai moi se duoc them len dau danh sach va tro thanh hero moi tren trang `news`.</li>
+              <li>Bai chi tiet duoc sinh mock dong bo theo `article id` va noi dung form.</li>
+              <li>He thong yeu cau toi thieu 1 bai viet de giu trang public khong bi rong.</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </article>
+  </section>
+</section>

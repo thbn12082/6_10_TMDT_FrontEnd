@@ -1,0 +1,25 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+  padding: 0 12px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.badge--positive {
+  background: rgba(15, 123, 108, 0.12);
+  color: var(--signal-positive);
+}
+
+.badge--neutral {
+  background: rgba(89, 110, 139, 0.12);
+  color: var(--signal-neutral);
+}
+
+.badge--warning {
+  background: rgba(193, 120, 23, 0.12);
+  color: var(--signal-warning);
+}

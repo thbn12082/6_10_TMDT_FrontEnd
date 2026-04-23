@@ -1,0 +1,10 @@
+<span
+  class="badge"
+  [ngClass]="{
+    'badge--positive': tone() === 'positive',
+    'badge--warning': tone() === 'warning',
+    'badge--neutral': tone() === 'neutral'
+  }"
+>
+  {{ label() }}
+</span>

@@ -1,0 +1,69 @@
+<div class="shell">
+  <aside class="sidebar surface-card">
+    <div class="brand">
+      <p class="brand__eyebrow">Angular Mock Base</p>
+      <h1>Code giao dien truoc, doi service sau.</h1>
+      <p class="brand__description">
+        Base nay da tach route, layout, shared component va mock service de ban co the bat dau
+        code UI ngay.
+      </p>
+    </div>
+
+    <nav class="nav">
+      @for (item of navigation; track item.path) {
+        <a
+          class="nav__item"
+          [routerLink]="item.path"
+          routerLinkActive="nav__item--active"
+          [routerLinkActiveOptions]="{ exact: item.exact ?? false }"
+        >
+          <span class="nav__label">{{ item.label }}</span>
+          <span class="nav__description">{{ item.description }}</span>
+        </a>
+      }
+    </nav>
+
+    <div class="sidebar-note">
+      <p class="muted-label">Current mode</p>
+      <strong>Standalone + mock data</strong>
+      <p>Chua them `HttpClient`, chua phu thuoc backend.</p>
+      @if (currentUser(); as user) {
+        <div class="sidebar-user">
+          <span>{{ user.fullName }}</span>
+          <small>{{ user.email }}</small>
+        </div>
+      }
+    </div>
+  </aside>
+
+  <div class="content">
+    <header class="topbar">
+      <div>
+        <p class="muted-label">Workspace</p>
+        <h2>Frontend starter</h2>
+      </div>
+
+      <div class="topbar__meta">
+        <div>
+          <span class="muted-label">Style</span>
+          <strong>SCSS + reusable surface</strong>
+        </div>
+        <div>
+          <span class="muted-label">State</span>
+          <strong>Mock service + route shell</strong>
+        </div>
+        @if (currentUser(); as user) {
+          <div class="topbar__user">
+            <span class="muted-label">Signed in</span>
+            <strong>{{ user.fullName }}</strong>
+          </div>
+        }
+        <button class="topbar__logout" type="button" (click)="logout()">Logout</button>
+      </div>
+    </header>
+
+    <main class="page-content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
