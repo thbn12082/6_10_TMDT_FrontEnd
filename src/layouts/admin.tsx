@@ -79,7 +79,15 @@ const navItems: NavItem[] = [
             { label: 'Tạo mã giảm giá', href: '/admin/discounts/create' }
         ]
     },
-    { label: 'Người dùng', icon: Users, href: '/admin/users' },
+    {
+        label: 'Người dùng',
+        icon: Users,
+        href: '/admin/users',
+        children: [
+            { label: 'Danh sách người dùng', href: '/admin/users' },
+            { label: 'Tạo người dùng', href: '/admin/users/create' },
+        ],
+    },
     { label: 'Cài đặt', icon: Settings, href: '/admin/settings' },
 ]
 
@@ -136,7 +144,15 @@ const navItemsWithDividers: (NavItemType | NavItemDividerType)[] = [
         ]
     },
     { divider: true },
-    { label: 'Người dùng', icon: Users, href: '/admin/users' },
+    {
+        label: 'Người dùng',
+        icon: Users,
+        href: '/admin/users',
+        items: [
+            { label: 'Danh sách người dùng', href: '/admin/users' },
+            { label: 'Tạo người dùng', href: '/admin/users/create' },
+        ],
+    },
     { label: 'Cài đặt', icon: Settings, href: '/admin/settings' },
 ]
 

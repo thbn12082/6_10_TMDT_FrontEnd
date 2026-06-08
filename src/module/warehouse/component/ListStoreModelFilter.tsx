@@ -113,7 +113,7 @@ export const ListStoreModelFilter = ({ filter, onChangeFilter, onClearFilter }: 
                                 </Select.Trigger>
                                 <Select.Content className="z-[1000] bg-white">
                                     <Select.Item value="all">Tất cả kho hàng</Select.Item>
-                                    {warehouseData?.results.map((warehouse) => (
+                                    {(warehouseData?.results ?? []).map((warehouse) => (
                                         <Select.Item key={warehouse.id} value={warehouse.id.toString()}>
                                             {warehouse.name}
                                         </Select.Item>

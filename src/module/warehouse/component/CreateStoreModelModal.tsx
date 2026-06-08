@@ -190,7 +190,7 @@ export function CreateStoreModelModal({ isOpen, onClose }: CreateStoreModelModal
                                 <Select.Value placeholder="Chọn kho hàng nhận sản phẩm" />
                             </Select.Trigger>
                             <Select.Content>
-                                {warehouses?.results.map((w) => (
+                                {(warehouses?.results ?? []).map((w) => (
                                     <Select.Item key={w.id} value={w.id.toString()}>
                                         {w.name}
                                     </Select.Item>
@@ -216,7 +216,7 @@ export function CreateStoreModelModal({ isOpen, onClose }: CreateStoreModelModal
                                 <Select.Value placeholder="Chọn loại laptop nhập kho" />
                             </Select.Trigger>
                             <Select.Content>
-                                {laptops?.results.map((l) => (
+                                {(laptops?.results ?? []).map((l) => (
                                     <Select.Item key={l.id} value={l.id.toString()}>
                                         {l.name}
                                     </Select.Item>
@@ -242,7 +242,7 @@ export function CreateStoreModelModal({ isOpen, onClose }: CreateStoreModelModal
                                 <Select.Value placeholder="Chọn Option laptop" />
                             </Select.Trigger>
                             <Select.Content>
-                                {options?.results.map((l) => (
+                                {(options?.results ?? []).map((l) => (
                                     <Select.Item className='w-full' key={l.id} value={l.id.toString()}>
                                         {l.name}
                                     </Select.Item>

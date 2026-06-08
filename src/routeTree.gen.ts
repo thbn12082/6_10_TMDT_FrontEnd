@@ -21,6 +21,7 @@ import { Route as UsersCartsIndexRouteImport } from './routes/users/carts/index'
 import { Route as PublicPostsIndexRouteImport } from './routes/public/posts/index'
 import { Route as PublicLaptopsIndexRouteImport } from './routes/public/laptops/index'
 import { Route as AdminWarehousesIndexRouteImport } from './routes/admin/warehouses/index'
+import { Route as AdminUsersIndexRouteImport } from './routes/admin/users/index'
 import { Route as AdminPostsIndexRouteImport } from './routes/admin/posts/index'
 import { Route as AdminOrdersIndexRouteImport } from './routes/admin/orders/index'
 import { Route as AdminLaptopsIndexRouteImport } from './routes/admin/laptops/index'
@@ -33,6 +34,7 @@ import { Route as PublicPostsSlugRouteImport } from './routes/public/posts/$slug
 import { Route as PublicLaptopsSlugRouteImport } from './routes/public/laptops/$slug'
 import { Route as AuthSsoCallbackRouteImport } from './routes/auth/sso/callback'
 import { Route as AdminWarehousesStorageRouteImport } from './routes/admin/warehouses/storage'
+import { Route as AdminUsersCreateRouteImport } from './routes/admin/users/create'
 import { Route as AdminPostsCreateRouteImport } from './routes/admin/posts/create'
 import { Route as AdminOrdersOrderIdRouteImport } from './routes/admin/orders/$orderId'
 import { Route as AdminLaptopsCreateRouteImport } from './routes/admin/laptops/create'
@@ -99,6 +101,11 @@ const AdminWarehousesIndexRoute = AdminWarehousesIndexRouteImport.update({
   path: '/warehouses/',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminUsersIndexRoute = AdminUsersIndexRouteImport.update({
+  id: '/users/',
+  path: '/users/',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminPostsIndexRoute = AdminPostsIndexRouteImport.update({
   id: '/posts/',
   path: '/posts/',
@@ -159,6 +166,11 @@ const AdminWarehousesStorageRoute = AdminWarehousesStorageRouteImport.update({
   path: '/warehouses/storage',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminUsersCreateRoute = AdminUsersCreateRouteImport.update({
+  id: '/users/create',
+  path: '/users/create',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminPostsCreateRoute = AdminPostsCreateRouteImport.update({
   id: '/posts/create',
   path: '/posts/create',
@@ -198,6 +210,7 @@ export interface FileRoutesByFullPath {
   '/admin/laptops/create': typeof AdminLaptopsCreateRoute
   '/admin/orders/$orderId': typeof AdminOrdersOrderIdRoute
   '/admin/posts/create': typeof AdminPostsCreateRoute
+  '/admin/users/create': typeof AdminUsersCreateRoute
   '/admin/warehouses/storage': typeof AdminWarehousesStorageRoute
   '/auth/sso/callback': typeof AuthSsoCallbackRoute
   '/public/laptops/$slug': typeof PublicLaptopsSlugRoute
@@ -210,6 +223,7 @@ export interface FileRoutesByFullPath {
   '/admin/laptops/': typeof AdminLaptopsIndexRoute
   '/admin/orders/': typeof AdminOrdersIndexRoute
   '/admin/posts/': typeof AdminPostsIndexRoute
+  '/admin/users/': typeof AdminUsersIndexRoute
   '/admin/warehouses/': typeof AdminWarehousesIndexRoute
   '/public/laptops/': typeof PublicLaptopsIndexRoute
   '/public/posts/': typeof PublicPostsIndexRoute
@@ -229,6 +243,7 @@ export interface FileRoutesByTo {
   '/admin/laptops/create': typeof AdminLaptopsCreateRoute
   '/admin/orders/$orderId': typeof AdminOrdersOrderIdRoute
   '/admin/posts/create': typeof AdminPostsCreateRoute
+  '/admin/users/create': typeof AdminUsersCreateRoute
   '/admin/warehouses/storage': typeof AdminWarehousesStorageRoute
   '/auth/sso/callback': typeof AuthSsoCallbackRoute
   '/public/laptops/$slug': typeof PublicLaptopsSlugRoute
@@ -241,6 +256,7 @@ export interface FileRoutesByTo {
   '/admin/laptops': typeof AdminLaptopsIndexRoute
   '/admin/orders': typeof AdminOrdersIndexRoute
   '/admin/posts': typeof AdminPostsIndexRoute
+  '/admin/users': typeof AdminUsersIndexRoute
   '/admin/warehouses': typeof AdminWarehousesIndexRoute
   '/public/laptops': typeof PublicLaptopsIndexRoute
   '/public/posts': typeof PublicPostsIndexRoute
@@ -261,6 +277,7 @@ export interface FileRoutesById {
   '/admin/laptops/create': typeof AdminLaptopsCreateRoute
   '/admin/orders/$orderId': typeof AdminOrdersOrderIdRoute
   '/admin/posts/create': typeof AdminPostsCreateRoute
+  '/admin/users/create': typeof AdminUsersCreateRoute
   '/admin/warehouses/storage': typeof AdminWarehousesStorageRoute
   '/auth/sso/callback': typeof AuthSsoCallbackRoute
   '/public/laptops/$slug': typeof PublicLaptopsSlugRoute
@@ -273,6 +290,7 @@ export interface FileRoutesById {
   '/admin/laptops/': typeof AdminLaptopsIndexRoute
   '/admin/orders/': typeof AdminOrdersIndexRoute
   '/admin/posts/': typeof AdminPostsIndexRoute
+  '/admin/users/': typeof AdminUsersIndexRoute
   '/admin/warehouses/': typeof AdminWarehousesIndexRoute
   '/public/laptops/': typeof PublicLaptopsIndexRoute
   '/public/posts/': typeof PublicPostsIndexRoute
@@ -294,6 +312,7 @@ export interface FileRouteTypes {
     | '/admin/laptops/create'
     | '/admin/orders/$orderId'
     | '/admin/posts/create'
+    | '/admin/users/create'
     | '/admin/warehouses/storage'
     | '/auth/sso/callback'
     | '/public/laptops/$slug'
@@ -306,6 +325,7 @@ export interface FileRouteTypes {
     | '/admin/laptops/'
     | '/admin/orders/'
     | '/admin/posts/'
+    | '/admin/users/'
     | '/admin/warehouses/'
     | '/public/laptops/'
     | '/public/posts/'
@@ -325,6 +345,7 @@ export interface FileRouteTypes {
     | '/admin/laptops/create'
     | '/admin/orders/$orderId'
     | '/admin/posts/create'
+    | '/admin/users/create'
     | '/admin/warehouses/storage'
     | '/auth/sso/callback'
     | '/public/laptops/$slug'
@@ -337,6 +358,7 @@ export interface FileRouteTypes {
     | '/admin/laptops'
     | '/admin/orders'
     | '/admin/posts'
+    | '/admin/users'
     | '/admin/warehouses'
     | '/public/laptops'
     | '/public/posts'
@@ -356,6 +378,7 @@ export interface FileRouteTypes {
     | '/admin/laptops/create'
     | '/admin/orders/$orderId'
     | '/admin/posts/create'
+    | '/admin/users/create'
     | '/admin/warehouses/storage'
     | '/auth/sso/callback'
     | '/public/laptops/$slug'
@@ -368,6 +391,7 @@ export interface FileRouteTypes {
     | '/admin/laptops/'
     | '/admin/orders/'
     | '/admin/posts/'
+    | '/admin/users/'
     | '/admin/warehouses/'
     | '/public/laptops/'
     | '/public/posts/'
@@ -472,6 +496,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminWarehousesIndexRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/users/': {
+      id: '/admin/users/'
+      path: '/users'
+      fullPath: '/admin/users/'
+      preLoaderRoute: typeof AdminUsersIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/posts/': {
       id: '/admin/posts/'
       path: '/posts'
@@ -556,6 +587,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminWarehousesStorageRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/users/create': {
+      id: '/admin/users/create'
+      path: '/users/create'
+      fullPath: '/admin/users/create'
+      preLoaderRoute: typeof AdminUsersCreateRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/posts/create': {
       id: '/admin/posts/create'
       path: '/posts/create'
@@ -600,6 +638,7 @@ interface AdminRouteChildren {
   AdminLaptopsCreateRoute: typeof AdminLaptopsCreateRoute
   AdminOrdersOrderIdRoute: typeof AdminOrdersOrderIdRoute
   AdminPostsCreateRoute: typeof AdminPostsCreateRoute
+  AdminUsersCreateRoute: typeof AdminUsersCreateRoute
   AdminWarehousesStorageRoute: typeof AdminWarehousesStorageRoute
   AdminCategoriesIndexRoute: typeof AdminCategoriesIndexRoute
   AdminDashboardIndexRoute: typeof AdminDashboardIndexRoute
@@ -607,6 +646,7 @@ interface AdminRouteChildren {
   AdminLaptopsIndexRoute: typeof AdminLaptopsIndexRoute
   AdminOrdersIndexRoute: typeof AdminOrdersIndexRoute
   AdminPostsIndexRoute: typeof AdminPostsIndexRoute
+  AdminUsersIndexRoute: typeof AdminUsersIndexRoute
   AdminWarehousesIndexRoute: typeof AdminWarehousesIndexRoute
 }
 
@@ -616,6 +656,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminLaptopsCreateRoute: AdminLaptopsCreateRoute,
   AdminOrdersOrderIdRoute: AdminOrdersOrderIdRoute,
   AdminPostsCreateRoute: AdminPostsCreateRoute,
+  AdminUsersCreateRoute: AdminUsersCreateRoute,
   AdminWarehousesStorageRoute: AdminWarehousesStorageRoute,
   AdminCategoriesIndexRoute: AdminCategoriesIndexRoute,
   AdminDashboardIndexRoute: AdminDashboardIndexRoute,
@@ -623,6 +664,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminLaptopsIndexRoute: AdminLaptopsIndexRoute,
   AdminOrdersIndexRoute: AdminOrdersIndexRoute,
   AdminPostsIndexRoute: AdminPostsIndexRoute,
+  AdminUsersIndexRoute: AdminUsersIndexRoute,
   AdminWarehousesIndexRoute: AdminWarehousesIndexRoute,
 }
 

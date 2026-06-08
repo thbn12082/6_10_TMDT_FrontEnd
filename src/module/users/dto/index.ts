@@ -19,3 +19,12 @@ export type UsersDto = {
     isActive: number
     roles?: string[]
 }
+
+export type CreateUserRequest = {
+    fullName: string
+    gender: keyof typeof GenderType | null
+    address: string
+    email: string
+    phoneNumber: string
+    password: string
+}

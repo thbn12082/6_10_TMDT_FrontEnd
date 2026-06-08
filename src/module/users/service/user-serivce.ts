@@ -1,5 +1,5 @@
 import { ApiClient, type CollectionResponse, type HttpClient } from "#/lib/http.client";
-import type { UsersDto } from "../dto";
+import type { CreateUserRequest, UsersDto } from "../dto";
 import { BaseParams } from "#/lib/dto/base-params";
 
 export class ListUserParams extends BaseParams {
@@ -19,6 +19,14 @@ export class UserService {
 
     async getListForSelect(params: ListUserParams): Promise<CollectionResponse<UsersDto>> {
         return await this.apiClient.get(this.adminUrl, { params })
+    }
+
+    async getList(params: ListUserParams): Promise<CollectionResponse<UsersDto>> {
+        return await this.apiClient.get(this.adminUrl, { params })
+    }
+
+    async create(request: CreateUserRequest): Promise<UsersDto> {
+        return await this.apiClient.post("/v1/auth/sign-up", request)
     }
 
     async getProfile(): Promise<UsersDto> {
